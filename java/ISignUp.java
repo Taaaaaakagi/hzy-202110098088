@@ -5,7 +5,7 @@ import java.util.Scanner;
 public interface ISignUp {
     public void print();
     public boolean addStudent (Integer stuType);
-    public static IParams parse() throws Exception{
+    public static IParams parse() throws Exception{           //·ÖÎö×Ö·û´®
         final Scanner reader = new Scanner(System.in);
         System.out.print("´ó°àÃû¶î£º");
         SchoolSystem._big = reader.nextInt();
@@ -43,7 +43,7 @@ public interface ISignUp {
                 return input;
             }
         };
-        return ip;
+        return ip;    //shuchu
     }
 
 }

@@ -1,62 +1,61 @@
 package git;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class SchoolSystem implements ISignUp {
-    public static Integer _big;
-    public static Integer _medium;
-    public static Integer _small;
+    public static int big = 0;
+    public static int middle = 0;
+    public static int small = 0;
+    public String operation;
+    public int tempcou = 0;
+    public static boolean[] result;
 
-    public SchoolSystem(Integer big,Integer medium ,Integer small){
-        _big=big;
-        _medium=medium;
-        _small=small;
+    public SchoolSystem() {
+        this.operation = null;
     }
-    public boolean addStudent(Integer stuType){
-        if (stuType==1){
-            if(_big!=0&&_big!=null){
-                _big--;
-                return true;
-            }
-        }
-        if(stuType==2){
-            if(_medium!=0&&_medium!=null){
-                _medium--;
-                return true;
-            }
-        }
-        if(stuType==3){
-            if(_small!=0&&_small!=null){
-                _small--;
-                return true;
-            }
-        }
-        return false;
+
+    public SchoolSystem(int b, int m, int s) {
+        big = b;
+        middle = m;
+        small = s;
+        result = new boolean[4];
     }
-    public String []parse(String ... input){
-        if(input.equals("SchoolSystem")){
-            String []a1={_big.toString(),_medium.toString(),_small.toString()};
-            return a1;
+
+    public static void main(String[] args) throws Exception {
+        IParams params = ISignUp.parse();
+        SchoolSystem sc = new SchoolSystem(params.getBig(), params.getMedium(), params.getSmall());
+        ArrayList<Integer> plan = params.getPlanSignUp();
+
+        for(int i = 0; i < plan.size(); ++i) {
+            result[i] = sc.addStudent((Integer)plan.get(i));
         }
-        if(input.equals("addStudent")){
-            String []a2={"1"};
-            return a2;
-        }
-        if(input.equals("addStudent")){
-            String []a3={"2"};
-            return a3;
-        }
-        if(input.equals("addStudent")){
-            String []a4={"3"};
-            return a4;
-        }
-        if(input.equals("addStudent")){
-            String []a5={"1"};
-            return a5;
-        }
-        return new String[]{};
+
+        sc.print();
     }
-    public void print(){
-         System.out.println(this.addStudent(1));
+
+    public void print() {
+        System.out.print("[");
+        System.out.print("null,");
+
+        for(int i = 0; i < result.length; ++i) {
+            System.out.print(result[i] + ",");
+        }
+
+        System.out.print("]");
+    }
+
+    public boolean addStudent(int stuType) {
+        if (stuType == 1 && big > 0) {
+            --big;
+            return true;
+        } else if (stuType == 2 && middle > 0) {
+            --middle;
+            return true;
+        } else if (stuType == 3 && small > 0) {
+            --small;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
